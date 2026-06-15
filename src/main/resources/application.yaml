@@ -1,0 +1,25 @@
+spring:
+  kafka:
+
+    producer:
+      bootstrap-servers: localhost:9092
+      retries: 3
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      propetrties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connections: 5
+        retry.backoff.ms: 1000
+
+
+    consumer:
+      group-id: user-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+        spring.json.trusted.packages: "*"
+  application:
+    name: springboot-kafka
